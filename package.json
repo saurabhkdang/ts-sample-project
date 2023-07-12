@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server",
-    "build": "webpack"
+    "build": "webpack",
+    "build-prod": "webpack --config webpack.config.prod.js"
   },
   "author": "",
   "license": "ISC",
@@ -14,6 +15,7 @@
     "lite-server": "^2.6.1"
   },
   "devDependencies": {
+    "clean-webpack-plugin": "^4.0.0",
     "ts-loader": "^9.4.4",
     "typescript": "^5.1.6",
     "webpack": "^5.88.1",
