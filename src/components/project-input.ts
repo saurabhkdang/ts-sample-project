@@ -1,7 +1,7 @@
-import { BaseClass } from '../components/base-component.js';
-import * as Validation from '../utils/validation.js'; // a way to avoid the name clashes of the functions of different imported libs
-import { autobind as Autobind } from '../decorators/autobind.js'; //a away to alias for a single export
-import { projectState } from '../state/project-state.js';
+import { BaseClass } from '../components/base-component';
+import * as Validation from '../utils/validation'; // a way to avoid the name clashes of the functions of different imported libs
+import { autobind as Autobind } from '../decorators/autobind'; //a away to alias for a single export
+import { projectState } from '../state/project-state';
 
 // Project Class
 export class ProjectInput extends BaseClass<HTMLDivElement, HTMLFormElement> {
