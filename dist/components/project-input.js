@@ -5,8 +5,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { BaseClass } from '../components/base-component.js';
-import { validate } from '../utils/validation.js';
-import { autobind } from '../decorators/autobind.js';
+import * as Validation from '../utils/validation.js'; // a way to avoid the name clashes of the functions of different imported libs
+import { autobind as Autobind } from '../decorators/autobind.js'; //a away to alias for a single export
 import { projectState } from '../state/project-state.js';
 // Project Class
 export class ProjectInput extends BaseClass {
@@ -41,9 +41,9 @@ export class ProjectInput extends BaseClass {
             min: 1,
             max: 5
         };
-        if (!validate(titleValidatable) ||
-            !validate(descriptionValidatable) ||
-            !validate(peopleValidatable)) {
+        if (!Validation.validate(titleValidatable) ||
+            !Validation.validate(descriptionValidatable) ||
+            !Validation.validate(peopleValidatable)) {
             alert("Invalid Input, Please try again!!");
             return;
         }
@@ -68,5 +68,5 @@ export class ProjectInput extends BaseClass {
     }
 }
 __decorate([
-    autobind //Decorator
+    Autobind //Decorator
 ], ProjectInput.prototype, "submitHandler", null);

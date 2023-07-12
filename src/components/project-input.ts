@@ -1,6 +1,6 @@
 import { BaseClass } from '../components/base-component.js';
-import { Validatable, validate } from '../utils/validation.js';
-import { autobind } from '../decorators/autobind.js';
+import * as Validation from '../utils/validation.js'; // a way to avoid the name clashes of the functions of different imported libs
+import { autobind as Autobind } from '../decorators/autobind.js'; //a away to alias for a single export
 import { projectState } from '../state/project-state.js';
 
 // Project Class
@@ -30,18 +30,18 @@ export class ProjectInput extends BaseClass<HTMLDivElement, HTMLFormElement> {
         const enteredDescription = this.descriptionInputElement.value;
         const enteredPeople = this.peopleInputElement.value;
 
-        const titleValidatable: Validatable = {
+        const titleValidatable: Validation.Validatable = {
             value: enteredTitle,
             required: true
         }
 
-        const descriptionValidatable: Validatable = {
+        const descriptionValidatable: Validation.Validatable = {
             value: enteredDescription,
             required: true,
             minLength: 5
         }
 
-        const peopleValidatable: Validatable = {
+        const peopleValidatable: Validation.Validatable = {
             value: +enteredPeople,
             required: true,
             min: 1,
@@ -49,9 +49,9 @@ export class ProjectInput extends BaseClass<HTMLDivElement, HTMLFormElement> {
         }
 
         if(
-            !validate(titleValidatable) || 
-            !validate(descriptionValidatable) || 
-            !validate(peopleValidatable))
+            !Validation.validate(titleValidatable) || 
+            !Validation.validate(descriptionValidatable) || 
+            !Validation.validate(peopleValidatable))
         {
             alert("Invalid Input, Please try again!!");
             return;
@@ -66,7 +66,7 @@ export class ProjectInput extends BaseClass<HTMLDivElement, HTMLFormElement> {
         this.peopleInputElement.value = '';
     }
 
-    @autobind //Decorator
+    @Autobind //Decorator
     private submitHandler(event: Event){
         event.preventDefault();
         const userInput = this.gatherUserInput();
