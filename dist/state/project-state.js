@@ -1,33 +1,27 @@
 import { Project } from "../models/project.js";
 import { ProjectStatus } from "../models/project.js";
-
-type Listener<T> = (items: T[]) => void;
-
-class State<T> {
-    protected listeners: Listener<T>[] = [];
-    addListener(listenerFn: Listener<T> ){
+class State {
+    constructor() {
+        this.listeners = [];
+    }
+    addListener(listenerFn) {
         this.listeners.push(listenerFn);
     }
 }
-
 // Project State Management
-export class ProjectState extends State<Project> {
-    private projects: Project[] = [];
-    private static instance: ProjectState;
-
-    private constructor(){
+export class ProjectState extends State {
+    constructor() {
         super();
+        this.projects = [];
     }
-
     static getInstance() {
-        if(this.instance) {
+        if (this.instance) {
             return this.instance;
         }
         this.instance = new ProjectState();
         return this.instance;
     }
-
-    addProject(title: string, description: string, noOfPeople: number) {
+    addProject(title, description, noOfPeople) {
         const newProject = new Project(Math.random().toString(), title, description, noOfPeople, ProjectStatus.Active);
         /* const newProject = {
             id: Math.random().toString(),
@@ -35,24 +29,20 @@ export class ProjectState extends State<Project> {
             description: description,
             people: noOfPeople
         } */
-
         this.projects.push(newProject);
         this.updateListeners();
     }
-
-    moveProject(projectId: string, newStatus: ProjectStatus){
+    moveProject(projectId, newStatus) {
         const project = this.projects.find(prj => prj.id === projectId);
-        if(project && project.status !== newStatus) {
+        if (project && project.status !== newStatus) {
             project.status = newStatus;
             this.updateListeners();
         }
     }
-
-    private updateListeners(){
+    updateListeners() {
         for (const listenerFn of this.listeners) {
             listenerFn(this.projects.slice());
         }
     }
 }
-
 export const projectState = ProjectState.getInstance();
